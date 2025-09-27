@@ -6,4 +6,10 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\LibrarySystem.DataAccess.Context\LibrarySystem.DataAccess.Context.csproj" />
+      <ProjectReference Include="..\LibrarySystem.Domain.Exceptions\LibrarySystem.Domain.Exceptions.csproj" />
+      <ProjectReference Include="..\LibrarySystem.Domain.Interfaces\LibrarySystem.Domain.Interfaces.csproj" />
+    </ItemGroup>
+
 </Project>

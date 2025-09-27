@@ -1,6 +1,9 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using LibrarySystem.Application.Jobs;
 using LibrarySystem.DataAccess.Context;
+using LibrarySystem.DataAccess.Repositories;
+using LibrarySystem.Domain.Interfaces.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -20,6 +23,13 @@ var connectionString = Environment.GetEnvironmentVariable("DOCKER_CONNECTION_STR
 
 builder.Services.AddDbContext<LibrarySystemContext>(options =>
     options.UseNpgsql(connectionString));
+
+// Регистрация репозиториев
+builder.Services.AddTransient<IBookRepository, BookRepository>();
+builder.Services.AddTransient<ILibraryRepository, LibraryRepository>();
+builder.Services.AddTransient<ILibraryBookRepository, LibraryBookRepository>();
+
+builder.Services.AddScoped<InitializeDatabaseJob>();
 
 builder.Services.Configure<ApiBehaviorOptions>(options =>
 {
@@ -43,6 +53,9 @@ else
 {
     Console.WriteLine("Database is up-to-date");
 }
+
+var initDatabaseJob = services.GetRequiredService<InitializeDatabaseJob>();
+await initDatabaseJob.InitializeDatabaseAsync();
 
 if (app.Environment.IsDevelopment())
 {
