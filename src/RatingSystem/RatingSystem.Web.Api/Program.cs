@@ -1,13 +1,8 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using LibrarySystem.Application.Jobs;
-using LibrarySystem.Application.Services;
-using LibrarySystem.DataAccess.Context;
-using LibrarySystem.DataAccess.Repositories;
-using LibrarySystem.Domain.Interfaces.Repositories;
-using LibrarySystem.Domain.Interfaces.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using RatingSystem.DataAccess.Context;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,18 +18,10 @@ builder.Services.AddSwaggerGen();
 var connectionString = Environment.GetEnvironmentVariable("DOCKER_CONNECTION_STRING")
                        ?? builder.Configuration.GetConnectionString("DefaultConnection");
 
-builder.Services.AddDbContext<LibrarySystemContext>(options =>
+builder.Services.AddDbContext<RatingSystemContext>(options =>
     options.UseNpgsql(connectionString));
 
 // Регистрация репозиториев
-builder.Services.AddTransient<IBookRepository, BookRepository>();
-builder.Services.AddTransient<ILibraryRepository, LibraryRepository>();
-builder.Services.AddTransient<ILibraryBookRepository, LibraryBookRepository>();
-
-// Регистрация сервисов
-builder.Services.AddTransient<ILibraryService, LibraryService>();
-
-builder.Services.AddScoped<InitializeDatabaseJob>();
 
 builder.Services.Configure<ApiBehaviorOptions>(options =>
 {
@@ -46,7 +33,7 @@ var app = builder.Build();
 
 var scope = app.Services.CreateScope();
 var services = scope.ServiceProvider;
-var context = services.GetRequiredService<LibrarySystemContext>();
+var context = services.GetRequiredService<RatingSystemContext>();
 var pendingMigrations = context.Database.GetPendingMigrations().ToList();
 if (pendingMigrations.Any())
 {
@@ -58,9 +45,6 @@ else
 {
     Console.WriteLine("Database is up-to-date");
 }
-
-var initDatabaseJob = services.GetRequiredService<InitializeDatabaseJob>();
-await initDatabaseJob.InitializeDatabaseAsync();
 
 if (app.Environment.IsDevelopment())
 {

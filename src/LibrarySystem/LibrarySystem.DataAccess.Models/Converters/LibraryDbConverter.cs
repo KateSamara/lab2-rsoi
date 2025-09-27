@@ -12,4 +12,16 @@ public static class LibraryDbConverter
             city: library.City,
             address: library.Address);
     }
+
+    public static Library ToDomain(this LibraryDb libraryDb)
+    {
+        return new Library
+        {
+            Id = libraryDb.Id,
+            LibraryUuid = libraryDb.LibraryUuid,
+            Name = libraryDb.Name,
+            City = libraryDb.City,
+            Address = libraryDb.Address
+        };
+    }
 }

@@ -41,4 +41,33 @@ public class LibraryRepository(LibrarySystemContext context) : ILibraryRepositor
             throw new LibraryRepositoryException("There was an error adding the library.", e);
         }
     }
+
+    public async Task<LibraryPaged> GetLibrariesPagedAsync(LibraryRequest libraryRequest)
+    {
+        try
+        {
+            var librariesQueryable = _context.Libraries
+                .AsNoTracking()
+                .Where(l => l.City == libraryRequest.City);
+            var totalElements = await librariesQueryable.CountAsync();
+            
+            var librariesDb = await librariesQueryable
+                .Skip((libraryRequest.Page - 1) * libraryRequest.Size)
+                .Take(libraryRequest.Size)
+                .ToListAsync();
+
+            return new LibraryPaged
+            {
+                Page = libraryRequest.Page,
+                PageSize = libraryRequest.Size,
+                TotalItems = totalElements,
+                Items = librariesDb.ConvertAll(l => l.ToDomain())
+            };
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw new LibraryRepositoryException("There was an error getting the libraries.", e);
+        }
+    }
 }

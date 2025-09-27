@@ -16,12 +16,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\LibrarySystem.Application.Jobs\LibrarySystem.Application.Jobs.csproj" />
-      <ProjectReference Include="..\LibrarySystem.Application.Services\LibrarySystem.Application.Services.csproj" />
-      <ProjectReference Include="..\LibrarySystem.DataAccess.Context\LibrarySystem.DataAccess.Context.csproj" />
-      <ProjectReference Include="..\LibrarySystem.DataAccess.Repositories\LibrarySystem.DataAccess.Repositories.csproj" />
-      <ProjectReference Include="..\LibrarySystem.Domain.Interfaces\LibrarySystem.Domain.Interfaces.csproj" />
-      <ProjectReference Include="..\LibrarySystem.Web.Dto\LibrarySystem.Web.Dto.csproj" />
+      <ProjectReference Include="..\RatingSystem.DataAccess.Context\RatingSystem.DataAccess.Context.csproj" />
     </ItemGroup>
 
 </Project>
