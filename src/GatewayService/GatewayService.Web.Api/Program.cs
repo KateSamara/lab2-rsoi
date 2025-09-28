@@ -16,6 +16,9 @@ builder.Services.Configure<LibrarySystemConfiguration>(
 builder.Services.Configure<ReservationSystemConfiguration>(
     builder.Configuration.GetSection("ReservationSystemConfiguration"));
 
+builder.Services.Configure<RatingSystemConfiguration>(
+    builder.Configuration.GetSection("RatingSystemConfiguration"));
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 

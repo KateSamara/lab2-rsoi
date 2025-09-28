@@ -26,6 +26,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RatingSystem.Web.Dto", "Rat
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RatingSystem.Domain.Exceptions", "RatingSystem.Domain.Exceptions\RatingSystem.Domain.Exceptions.csproj", "{04C07E7C-6739-4453-82A7-C607E98A9304}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RatingSystem.Application.Jobs", "RatingSystem.Application.Jobs\RatingSystem.Application.Jobs.csproj", "{BE9EF312-6313-4F52-89DB-A0657394DE61}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -68,6 +70,10 @@ Global
 		{04C07E7C-6739-4453-82A7-C607E98A9304}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{04C07E7C-6739-4453-82A7-C607E98A9304}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{04C07E7C-6739-4453-82A7-C607E98A9304}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE9EF312-6313-4F52-89DB-A0657394DE61}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE9EF312-6313-4F52-89DB-A0657394DE61}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE9EF312-6313-4F52-89DB-A0657394DE61}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE9EF312-6313-4F52-89DB-A0657394DE61}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{DF054F58-6267-48DA-B335-7C1173BB4B02} = {8521C8BB-D42D-493D-8CB1-038C091D8A7D}
@@ -79,5 +85,6 @@ Global
 		{0869C61B-0852-4CB3-A460-9B8008AB2664} = {BC0DF140-8B87-4A9F-B6DA-5F12249BC0B8}
 		{CE6CE2F5-C754-4BC4-BC3B-52757BB92307} = {8521C8BB-D42D-493D-8CB1-038C091D8A7D}
 		{04C07E7C-6739-4453-82A7-C607E98A9304} = {BC0DF140-8B87-4A9F-B6DA-5F12249BC0B8}
+		{BE9EF312-6313-4F52-89DB-A0657394DE61} = {91559296-32C8-40C1-B33A-23BE0DBF0ACD}
 	EndGlobalSection
 EndGlobal

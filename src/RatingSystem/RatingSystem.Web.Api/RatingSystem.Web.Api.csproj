@@ -16,7 +16,12 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\RatingSystem.Application.Jobs\RatingSystem.Application.Jobs.csproj" />
+      <ProjectReference Include="..\RatingSystem.Application.Services\RatingSystem.Application.Services.csproj" />
       <ProjectReference Include="..\RatingSystem.DataAccess.Context\RatingSystem.DataAccess.Context.csproj" />
+      <ProjectReference Include="..\RatingSystem.DataAccess.Repositories\RatingSystem.DataAccess.Repositories.csproj" />
+      <ProjectReference Include="..\RatingSystem.Domain.Interfaces\RatingSystem.Domain.Interfaces.csproj" />
+      <ProjectReference Include="..\RatingSystem.Web.Dto\RatingSystem.Web.Dto.csproj" />
     </ItemGroup>
 
 </Project>

@@ -2,7 +2,12 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using RatingSystem.Application.Jobs;
+using RatingSystem.Application.Services;
 using RatingSystem.DataAccess.Context;
+using RatingSystem.DataAccess.Repositories;
+using RatingSystem.Domain.Interfaces.Repositories;
+using RatingSystem.Domain.Interfaces.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,7 +26,10 @@ var connectionString = Environment.GetEnvironmentVariable("DOCKER_CONNECTION_STR
 builder.Services.AddDbContext<RatingSystemContext>(options =>
     options.UseNpgsql(connectionString));
 
-// Регистрация репозиториев
+builder.Services.AddScoped<IRatingRepository, RatingRepository>();
+builder.Services.AddTransient<IRatingService, RatingService>();
+
+builder.Services.AddScoped<InitializeDatabaseJob>();
 
 builder.Services.Configure<ApiBehaviorOptions>(options =>
 {
@@ -45,6 +53,9 @@ else
 {
     Console.WriteLine("Database is up-to-date");
 }
+
+var job = services.GetRequiredService<InitializeDatabaseJob>();
+await job.InitializeDatabaseAsync();
 
 if (app.Environment.IsDevelopment())
 {
