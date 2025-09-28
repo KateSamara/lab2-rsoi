@@ -36,4 +36,17 @@ public class LibraryService(ILibraryRepository libraryRepository) : ILibraryServ
             throw new LibraryServiceException($"There was an error getting the books of library with uuid = {bookRequest.LibraryUuid}.", e);
         }
     }
+
+    public async Task<List<Library>> GetLibrariesByIdsAsync(List<Guid> ids)
+    {
+        try
+        {
+            return await _libraryRepository.GetLibrariesByIdsAsync(ids);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw new LibraryServiceException($"There was an error getting the libraries by ids = {ids}.", e);
+        }
+    }
 }

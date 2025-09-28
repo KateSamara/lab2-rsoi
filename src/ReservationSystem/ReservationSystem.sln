@@ -24,6 +24,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ReservationSystem.Domain", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ReservationSystem.Web", "ReservationSystem.Web", "{8BD4C774-4279-436F-8EC5-9B2CA040FCFF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReservationStatus.Domain.Exceptions", "ReservationStatus.Domain.Exceptions\ReservationStatus.Domain.Exceptions.csproj", "{5E2D43D8-81E4-4E6D-A608-51F74F9B3BCA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -62,6 +64,10 @@ Global
 		{51D54A91-263F-4CC0-ACC2-FBC905A7A4CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{51D54A91-263F-4CC0-ACC2-FBC905A7A4CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{51D54A91-263F-4CC0-ACC2-FBC905A7A4CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5E2D43D8-81E4-4E6D-A608-51F74F9B3BCA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E2D43D8-81E4-4E6D-A608-51F74F9B3BCA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E2D43D8-81E4-4E6D-A608-51F74F9B3BCA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E2D43D8-81E4-4E6D-A608-51F74F9B3BCA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{F91728AC-D2BC-4B13-8961-9377D8BDF56C} = {EB48B777-4D49-40FE-B74E-19C75785C5BF}
@@ -72,5 +78,6 @@ Global
 		{0CC29E6E-FE1D-4E1F-B6D5-35B39897C9B8} = {6E44720C-F555-4FDC-AB49-8CF429D18FDC}
 		{ED86B900-7117-4E75-A73F-F7F002D4A8B6} = {8BD4C774-4279-436F-8EC5-9B2CA040FCFF}
 		{BBC25832-52F6-4225-AF3E-027847FE9CFD} = {8BD4C774-4279-436F-8EC5-9B2CA040FCFF}
+		{5E2D43D8-81E4-4E6D-A608-51F74F9B3BCA} = {6E44720C-F555-4FDC-AB49-8CF429D18FDC}
 	EndGlobalSection
 EndGlobal

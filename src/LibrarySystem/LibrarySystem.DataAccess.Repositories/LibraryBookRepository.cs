@@ -46,4 +46,23 @@ public class LibraryBookRepository(LibrarySystemContext context) : ILibraryBookR
             throw new LibraryBookRepositoryException("There was an error adding the library book", e);
         }
     }
+
+    public async Task<LibraryBook> GetLibraryBookByBookAndLibraryIdsAsync(Guid bookId, Guid libraryId)
+    {
+        try
+        {
+            var libraryBooksDb = await _context.LibraryBooks
+                .Include(l => l.Book)
+                .Include(l => l.Library)
+                .Where(lb => lb.Book.BookUuid == bookId && lb.Library.LibraryUuid == libraryId)
+                .FirstAsync();
+
+            return libraryBooksDb.ToDomain();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw new LibraryBookRepositoryException($"There was an error getting the library book by book id = {bookId} and library id = {libraryId}.", e);
+        }
+    }
 }

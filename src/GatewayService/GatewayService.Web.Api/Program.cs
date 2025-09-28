@@ -11,8 +11,10 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 });
 
 builder.Services.Configure<LibrarySystemConfiguration>(
-    builder.Configuration.GetSection("LibrarySystemConfiguration")
-);
+    builder.Configuration.GetSection("LibrarySystemConfiguration"));
+
+builder.Services.Configure<ReservationSystemConfiguration>(
+    builder.Configuration.GetSection("ReservationSystemConfiguration"));
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

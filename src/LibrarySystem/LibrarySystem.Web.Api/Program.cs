@@ -33,6 +33,8 @@ builder.Services.AddTransient<ILibraryBookRepository, LibraryBookRepository>();
 
 // Регистрация сервисов
 builder.Services.AddTransient<ILibraryService, LibraryService>();
+builder.Services.AddTransient<IBookService, BookService>();
+builder.Services.AddTransient<ILibraryBookService, LibraryBookService>();
 
 builder.Services.AddScoped<InitializeDatabaseJob>();
 

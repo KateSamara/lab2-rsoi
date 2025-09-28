@@ -100,13 +100,30 @@ public class LibraryRepository(LibrarySystemContext context) : ILibraryRepositor
                 Page = bookRequest.Page,
                 PageSize = bookRequest.Size,
                 TotalElements = totalElements,
-                Items = booksDb.ConvertAll(lb => lb.ToDomain())
+                Items = booksDb.ConvertAll(lb => lb.Book!.ToDomain(lb.AvailableCount))
             };
         }
         catch (Exception e)
         {
             Console.WriteLine(e);
             throw new LibraryRepositoryException($"There was an error getting the books of library with uuid = {bookRequest.LibraryUuid}.", e);
+        }
+    }
+
+    public async Task<List<Library>> GetLibrariesByIdsAsync(List<Guid> ids)
+    {
+        try
+        {
+            var librariesDb = await _context.Libraries
+                .Where(l => ids.Contains(l.LibraryUuid))
+                .ToListAsync();
+
+            return librariesDb.ConvertAll(l => l.ToDomain());
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw new LibraryRepositoryException($"There was an error getting the libraries by ids = {ids}.", e);
         }
     }
 }

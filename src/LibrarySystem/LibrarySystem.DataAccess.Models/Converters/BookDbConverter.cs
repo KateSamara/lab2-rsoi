@@ -15,17 +15,30 @@ public static class BookDbConverter
             condition: book.Condition.ToDb());
     }
 
-    public static Book ToDomain(this LibraryBookDb libraryBook)
+    public static Book ToDomain(this BookDb book, int availableCount)
     {
         return new Book
         {
-            Id = libraryBook.Book!.Id,
-            BookUuid = libraryBook.Book!.BookUuid,
-            Name = libraryBook.Book!.Name,
-            Author = libraryBook.Book!.Author,
-            Genre = libraryBook.Book!.Genre,
-            Condition = libraryBook.Book!.Condition.ToDomain(),
-            AvailableCount = libraryBook.AvailableCount
+            Id = book.Id,
+            BookUuid = book.BookUuid,
+            Name = book.Name,
+            Author = book.Author,
+            Genre = book.Genre,
+            Condition = book.Condition.ToDomain(),
+            AvailableCount = availableCount
+        };
+    }
+
+    public static Book ToDomain(this BookDb bookDb)
+    {
+        return new Book
+        {
+            Id = bookDb.Id,
+            BookUuid = bookDb.BookUuid,
+            Name = bookDb.Name,
+            Author = bookDb.Author,
+            Genre = bookDb.Genre,
+            Condition = bookDb.Condition.ToDomain()
         };
     }
 }

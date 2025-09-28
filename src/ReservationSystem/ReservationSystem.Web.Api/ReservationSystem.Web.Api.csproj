@@ -17,7 +17,11 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\ReservationSystem.Application.Services\ReservationSystem.Application.Services.csproj" />
       <ProjectReference Include="..\ReservationSystem.DataAccess.Context\ReservationSystem.DataAccess.Context.csproj" />
+      <ProjectReference Include="..\ReservationSystem.DataAccess.Repositories\ReservationSystem.DataAccess.Repositories.csproj" />
+      <ProjectReference Include="..\ReservationSystem.Domain.Interfaces\ReservationSystem.Domain.Interfaces.csproj" />
+      <ProjectReference Include="..\ReservationSystem.Web.Dto\ReservationSystem.Web.Dto.csproj" />
     </ItemGroup>
 
 </Project>

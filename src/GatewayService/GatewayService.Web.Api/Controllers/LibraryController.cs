@@ -26,9 +26,10 @@ public class LibraryController : ControllerBase
     {
         using var client = new HttpClient();
         
-        var request = $"{_librarySystemConfiguration.IpAddress}/{_librarySystemConfiguration.BaseUrl}?page={page}&size={size}&city={city}";
-        var response = await client.GetAsync(request);
+        using var request = new HttpRequestMessage(HttpMethod.Get,
+            $"{_librarySystemConfiguration.IpAddress}/{_librarySystemConfiguration.BaseUrl}?page={page}&size={size}&city={city}");
         
+        using var response = await client.SendAsync(request);
         response.EnsureSuccessStatusCode();
         var json = await response.Content.ReadAsStringAsync();
         
@@ -46,9 +47,10 @@ public class LibraryController : ControllerBase
     {
         using var client = new HttpClient();
         
-        var request = $"{_librarySystemConfiguration.IpAddress}/{_librarySystemConfiguration.BaseUrl}/{libraryUid}/{_librarySystemConfiguration.GetBooksSuffix}?page={page}&size={size}&showAll={showAll}";
-        var response = await client.GetAsync(request);
+        using var request = new HttpRequestMessage(HttpMethod.Get,
+            $"{_librarySystemConfiguration.IpAddress}/{_librarySystemConfiguration.BaseUrl}/{libraryUid}/{_librarySystemConfiguration.GetBooksSuffix}?page={page}&size={size}&showAll={showAll}");
         
+        using var response = await client.SendAsync(request);
         response.EnsureSuccessStatusCode();
         var json = await response.Content.ReadAsStringAsync();
         

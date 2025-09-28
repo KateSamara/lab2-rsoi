@@ -41,4 +41,22 @@ public class BookRepository(LibrarySystemContext context) : IBookRepository
             throw new BookRepositoryException("There was an error adding the book", e);
         }
     }
+
+    public async Task<List<Book>> GetBooksByIdsAsync(List<Guid> ids)
+    {
+        try
+        {
+            var booksDb = await _context.Books
+                .AsNoTracking()
+                .Where(b => ids.Contains(b.BookUuid))
+                .ToListAsync();
+
+            return booksDb.ConvertAll(b => b.ToDomain());
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw new BookRepositoryException($"There was an error getting the books by ids = {ids}", e);
+        }
+    }
 }

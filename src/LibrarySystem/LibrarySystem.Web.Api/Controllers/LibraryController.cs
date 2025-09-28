@@ -58,4 +58,14 @@ public class LibraryController : ControllerBase
         
         return Ok(booksPaged.ToDto());
     }
+    
+    [HttpGet("ids")]
+    [ProducesResponseType(typeof(List<LibraryDto>), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public async Task<IActionResult> GetLibrariesByIdsAsync([FromQuery] List<Guid> ids)
+    {
+        var libraries = await _libraryService.GetLibrariesByIdsAsync(ids);
+        
+        return Ok(libraries.ConvertAll(l => l.ToDto()));
+    }
 }

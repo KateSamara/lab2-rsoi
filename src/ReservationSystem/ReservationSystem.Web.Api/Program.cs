@@ -2,7 +2,11 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using ReservationSystem.Application.Services;
 using ReservationSystem.DataAccess.Context;
+using ReservationSystem.DataAccess.Repositories;
+using ReservationSystem.Domain.Interfaces.Repositories;
+using ReservationSystem.Domain.Interfaces.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,6 +30,8 @@ builder.Services.Configure<ApiBehaviorOptions>(options =>
     options.SuppressModelStateInvalidFilter = true;
 });
 
+builder.Services.AddTransient<IReservationRepository, ReservationRepository>();
+builder.Services.AddTransient<IReservationService, ReservationService>();
 
 var app = builder.Build();
 

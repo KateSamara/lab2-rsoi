@@ -10,4 +10,16 @@ public class ReservationDb
     public ReservationStatusDb Status { get; set; }
     public DateTime StartDate { get; set; }
     public DateTime TillDate { get; set; }
+
+    public ReservationDb(int id, Guid reservationUuid, string username, Guid bookUuid, Guid libraryUuid, ReservationStatusDb status, DateTime startDate, DateTime tillDate)
+    {
+        Id = id;
+        ReservationUuid = reservationUuid;
+        Username = username;
+        BookUuid = bookUuid;
+        LibraryUuid = libraryUuid;
+        Status = status;
+        StartDate = startDate;
+        TillDate = tillDate;
+    }
 }

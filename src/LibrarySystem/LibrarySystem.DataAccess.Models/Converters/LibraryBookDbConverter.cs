@@ -11,4 +11,16 @@ public static class LibraryBookDbConverter
             libraryId: libraryBook.LibraryId,
             availableCount: libraryBook.AvailableCount);
     }
+
+    public static LibraryBook ToDomain(this LibraryBookDb libraryBook)
+    {
+        return new LibraryBook
+        {
+            BookId = libraryBook.BookId,
+            LibraryId = libraryBook.LibraryId,
+            AvailableCount = libraryBook.AvailableCount,
+            Book = libraryBook.Book.ToDomain(),
+            Library = libraryBook.Library.ToDomain()
+        };
+    }
 }
