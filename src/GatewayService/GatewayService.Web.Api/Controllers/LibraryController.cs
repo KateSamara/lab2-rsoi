@@ -1,11 +1,10 @@
-using System.Text;
 using System.Text.Json;
 using GatewayService.Configuration;
 using GatewayService.Web.Dto;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 
-namespace GatewayService.Controllers;
+namespace GatewayService.Web.Api.Controllers;
 
 [ApiController]
 [Route("/api/v1/libraries")]
