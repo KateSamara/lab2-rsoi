@@ -1,4 +1,4 @@
-namespace LibrarySystem.Domain.Models;
+namespace LibrarySystem.Domain.Models.Libraries;
 
 public record Library
 {

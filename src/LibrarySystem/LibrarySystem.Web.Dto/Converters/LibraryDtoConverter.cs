@@ -1,4 +1,5 @@
 using LibrarySystem.Domain.Models;
+using LibrarySystem.Domain.Models.Libraries;
 
 namespace LibrarySystem.Web.Dto.Converters;
 
@@ -12,11 +13,11 @@ public static class LibraryDtoConverter
             city: library.City);
     }
 
-    public static LibraryPagedDto ToDto(this LibraryPaged libraryPagedDto)
+    public static LibraryPagedDto ToDto(this LibraryPaged libraryPaged)
     {
-        return new LibraryPagedDto(page: libraryPagedDto.Page, 
-            pageSize: libraryPagedDto.PageSize,
-            totalItems: libraryPagedDto.TotalItems,
-            items: libraryPagedDto.Items.ConvertAll(l => l.ToDto()));
+        return new LibraryPagedDto(page: libraryPaged.Page, 
+            pageSize: libraryPaged.PageSize,
+            totalItems: libraryPaged.TotalItems,
+            items: libraryPaged.Items.ConvertAll(l => l.ToDto()));
     }
 }

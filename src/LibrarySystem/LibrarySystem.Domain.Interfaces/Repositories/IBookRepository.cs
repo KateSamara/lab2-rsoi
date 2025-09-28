@@ -1,4 +1,5 @@
 using LibrarySystem.Domain.Models;
+using LibrarySystem.Domain.Models.Books;
 
 namespace LibrarySystem.Domain.Interfaces.Repositories;
 

@@ -1,4 +1,5 @@
 using LibrarySystem.Domain.Models;
+using LibrarySystem.Domain.Models.Libraries;
 
 namespace LibrarySystem.DataAccess.Models.Converters;
 

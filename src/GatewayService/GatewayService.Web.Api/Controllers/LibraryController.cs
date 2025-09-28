@@ -35,4 +35,25 @@ public class LibraryController : ControllerBase
         var libraryPaged = JsonSerializer.Deserialize<LibraryPagedDto>(json);
         return Ok(libraryPaged);
     }
+    
+    [HttpGet("{libraryUid}/books")]
+    [ProducesResponseType(typeof(BookPagedDto), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public async Task<IActionResult> GetBooksPagedByLibraryUuid([FromRoute] Guid libraryUid,
+        [FromQuery] int page,
+        [FromQuery] int size,
+        [FromQuery] bool showAll)
+    {
+        using var client = new HttpClient();
+        
+        var request = $"{_librarySystemConfiguration.IpAddress}/{_librarySystemConfiguration.BaseUrl}/{libraryUid}/{_librarySystemConfiguration.GetBooksSuffix}?page={page}&size={size}&showAll={showAll}";
+        var response = await client.GetAsync(request);
+        
+        response.EnsureSuccessStatusCode();
+        var json = await response.Content.ReadAsStringAsync();
+        
+        var booksPaged = JsonSerializer.Deserialize<BookPagedDto>(json);
+        
+        return Ok(booksPaged);
+    }
 }

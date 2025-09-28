@@ -1,4 +1,4 @@
-namespace LibrarySystem.Domain.Models;
+namespace LibrarySystem.Domain.Models.Books;
 
 public enum BookCondition
 {

@@ -1,4 +1,6 @@
 using LibrarySystem.Domain.Models;
+using LibrarySystem.Domain.Models.Books;
+using LibrarySystem.Domain.Models.Libraries;
 
 namespace LibrarySystem.Domain.Interfaces.Repositories;
 
@@ -9,4 +11,6 @@ public interface ILibraryRepository
     public Task AddLibraryAsync(Library library);
     
     public Task<LibraryPaged> GetLibrariesPagedAsync(LibraryRequest libraryRequest);
+    
+    public Task<BookPaged> GetBookPagedByLibraryUuidAsync(BookRequest bookRequest);
 }

@@ -2,6 +2,8 @@
 using LibrarySystem.Domain.Interfaces.Repositories;
 using LibrarySystem.Domain.Interfaces.Services;
 using LibrarySystem.Domain.Models;
+using LibrarySystem.Domain.Models.Books;
+using LibrarySystem.Domain.Models.Libraries;
 
 namespace LibrarySystem.Application.Services;
 
@@ -19,6 +21,19 @@ public class LibraryService(ILibraryRepository libraryRepository) : ILibraryServ
         {
             Console.WriteLine(e);
             throw new LibraryServiceException("An error occured while getting all libraries.", e);
+        }
+    }
+
+    public async Task<BookPaged> GetBookPagedByLibraryUuidAsync(BookRequest bookRequest)
+    {
+        try
+        {
+            return await _libraryRepository.GetBookPagedByLibraryUuidAsync(bookRequest);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw new LibraryServiceException($"There was an error getting the books of library with uuid = {bookRequest.LibraryUuid}.", e);
         }
     }
 }

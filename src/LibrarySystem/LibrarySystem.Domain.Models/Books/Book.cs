@@ -1,4 +1,4 @@
-namespace LibrarySystem.Domain.Models;
+namespace LibrarySystem.Domain.Models.Books;
 
 public record Book
 {
@@ -8,4 +8,5 @@ public record Book
     public required string? Author { get; init; }
     public required string? Genre { get; init; }
     public required BookCondition Condition { get; init; }
+    public int AvailableCount { get; init; }
 }

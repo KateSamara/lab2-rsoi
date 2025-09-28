@@ -3,6 +3,7 @@ using LibrarySystem.DataAccess.Models.Converters;
 using LibrarySystem.Domain.Exceptions.Repositories;
 using LibrarySystem.Domain.Interfaces.Repositories;
 using LibrarySystem.Domain.Models;
+using LibrarySystem.Domain.Models.Books;
 using Microsoft.EntityFrameworkCore;
 
 namespace LibrarySystem.DataAccess.Repositories;
