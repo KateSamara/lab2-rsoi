@@ -68,4 +68,20 @@ public class LibraryController : ControllerBase
         
         return Ok(libraries.ConvertAll(l => l.ToDto()));
     }
+
+    [HttpPatch("{libraryUid}/books/{bookUid}")]
+    [ProducesResponseType(typeof(LibraryBookDto), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public async Task<IActionResult> UpdateBookCountAsync([FromRoute] Guid libraryUid, [FromRoute] Guid bookUid,
+        [FromQuery] bool isIncrease)
+    {
+        LibraryBook libraryBook;
+        
+        if (isIncrease)
+            return StatusCode(StatusCodes.Status405MethodNotAllowed);
+        else
+            libraryBook = await _libraryService.DecreaseBookCountAsync(libraryUid, bookUid);
+        
+        return Ok(libraryBook.ToDto());
+    }
 }

@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace RatingSystem.Web.Dto;
+namespace GatewayService.Web.Dto.Ratings;
 
 public class RatingDto
 {

@@ -18,4 +18,17 @@ public static class ReservationDbConverter
             TillDate = reservationDb.TillDate
         };
     }
+
+    public static ReservationDb ToDb(this ReservationCreate reservation, int id)
+    {
+        var currentTime = DateTime.UtcNow;
+        return new ReservationDb(id: id,
+            reservationUuid: Guid.NewGuid(),
+            username: reservation.Username,
+            libraryUuid: reservation.LibraryUuid,
+            bookUuid: reservation.BookUuid,
+            status: ReservationStatusDb.RENTED,
+            startDate: new DateOnly(year: currentTime.Year, month: currentTime.Month, day: currentTime.Day),
+            tillDate: reservation.TillDate);
+    }
 }

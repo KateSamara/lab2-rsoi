@@ -25,4 +25,27 @@ public class ReservationController : ControllerBase
         
         return Ok(reservations.ConvertAll(r => r.ToDto()));
     }
+
+    [HttpGet("{status}")]
+    [ProducesResponseType(typeof(int), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public async Task<IActionResult> GetReservationsCountByStatusAndUsernameAsync(
+        [FromHeader(Name = "X-User-Name")] string username,
+        [FromRoute] string status)
+    {
+        Enum.TryParse(status, ignoreCase: true, out Domain.Models.ReservationStatus statusEnum);
+        var count = await _reservationService.GetReservationsCountByStatusAndUsernameAsync(statusEnum, username);
+        
+        return Ok(count);
+    }
+
+    [HttpPost]
+    [ProducesResponseType(typeof(List<ReservationDto>), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public async Task<IActionResult> CreateReservationAsync([FromHeader(Name = "X-User-Name")] string username, [FromBody] ReservationCreateDto reservationCreateDto)
+    {
+        var newReservation = await _reservationService.AddReservationAsync(reservationCreateDto.ToDomain(username));
+        
+        return Ok(newReservation.ToDto());
+    }
 }

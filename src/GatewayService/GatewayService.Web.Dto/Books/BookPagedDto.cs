@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace GatewayService.Web.Dto;
+namespace GatewayService.Web.Dto.Books;
 
 public class BookPagedDto
 {

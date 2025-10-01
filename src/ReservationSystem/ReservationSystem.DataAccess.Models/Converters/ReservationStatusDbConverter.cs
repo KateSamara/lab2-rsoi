@@ -14,4 +14,15 @@ public static class ReservationStatusDbConverter
             _ => ReservationStatus.RETURNED
         };
     }
+    
+    public static ReservationStatusDb ToDb(this ReservationStatus reservationStatus)
+    {
+        return reservationStatus switch
+        {
+            ReservationStatus.RENTED => ReservationStatusDb.RENTED,
+            ReservationStatus.RETURNED => ReservationStatusDb.RETURNED,
+            ReservationStatus.EXPIRED => ReservationStatusDb.EXPIRED,
+            _ => ReservationStatusDb.RETURNED
+        };
+    }
 }

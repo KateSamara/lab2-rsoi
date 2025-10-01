@@ -49,4 +49,19 @@ public class LibraryService(ILibraryRepository libraryRepository) : ILibraryServ
             throw new LibraryServiceException($"There was an error getting the libraries by ids = {ids}.", e);
         }
     }
+
+    public async Task<LibraryBook> DecreaseBookCountAsync(Guid libraryId, Guid bookId)
+    {
+        try
+        {
+            return await _libraryRepository.DecreaseBookCountAsync(libraryId, bookId);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw new LibraryServiceException(
+                $"There was an error decreasing the book count with id = {bookId} in library with id = {libraryId}.",
+                e);
+        }
+    }
 }

@@ -126,4 +126,25 @@ public class LibraryRepository(LibrarySystemContext context) : ILibraryRepositor
             throw new LibraryRepositoryException($"There was an error getting the libraries by ids = {ids}.", e);
         }
     }
+
+    public async Task<LibraryBook> DecreaseBookCountAsync(Guid libraryId, Guid bookId)
+    {
+        try
+        {
+            var libraryBook = await _context.LibraryBooks
+                .Include(lb => lb.Book)
+                .Include(lb => lb.Library)
+                .FirstAsync(lb => lb.Library!.LibraryUuid == libraryId && lb.Book!.BookUuid == bookId);
+            
+            libraryBook.AvailableCount--;
+            await _context.SaveChangesAsync();
+            
+            return libraryBook.ToDomain();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw new LibraryRepositoryException($"There was an error decreasing the book count with id = {bookId} in library with id = {libraryId}.", e);
+        }
+    }
 }

@@ -22,13 +22,13 @@ public class ReservationDto
     
     [JsonRequired]
     [JsonPropertyName("startDate")]
-    public DateTime StartDate { get; set; }
+    public DateOnly StartDate { get; set; }
     
     [JsonRequired]
     [JsonPropertyName("tillDate")]
-    public DateTime TillDate { get; set; }
+    public DateOnly TillDate { get; set; }
 
-    public ReservationDto(Guid reservationUuid, Guid bookUuid, Guid libraryUuid, string status, DateTime startDate, DateTime tillDate)
+    public ReservationDto(Guid reservationUuid, Guid bookUuid, Guid libraryUuid, string status, DateOnly startDate, DateOnly tillDate)
     {
         ReservationUuid = reservationUuid;
         BookUuid = bookUuid;

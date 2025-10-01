@@ -8,6 +8,6 @@ public record Reservation
     public required Guid BookUuid { get; init; }
     public required Guid LibraryUuid { get; init; }
     public required ReservationStatus Status { get; init; }
-    public required DateTime StartDate { get; init; }
-    public required DateTime TillDate { get; init; }
+    public required DateOnly StartDate { get; init; }
+    public required DateOnly TillDate { get; init; }
 }

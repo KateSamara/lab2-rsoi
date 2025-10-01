@@ -28,4 +28,46 @@ public class ReservationRepository(ReservationSystemContext reservationSystemCon
             throw new ReservationRepositoryException($"Error while getting reservations by username = {username}.", e);
         }
     }
+
+    public async Task<int> GetReservationsCountByStatusAndUsernameAsync(Domain.Models.ReservationStatus status, string username)
+    {
+        try
+        {
+            var statusDb = status.ToDb();
+            
+            return await _reservationSystemContext.Reservations
+                .AsNoTracking()
+                .Where(r => r.Status == statusDb && r.Username == username)
+                .CountAsync();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw new ReservationRepositoryException($"Error while getting reservations by status = {status.ToString()} and username = {username}.", e);
+        }
+    }
+
+    public async Task<Reservation> AddReservationAsync(ReservationCreate reservation)
+    {
+        try
+        {
+            int id;
+            if (await _reservationSystemContext.Reservations.CountAsync() == 0)
+                id = 1;
+            else
+                id = await _reservationSystemContext.Reservations.MaxAsync(r => r.Id) + 1;
+
+            var reservationDb = reservation.ToDb(id);
+            
+            _reservationSystemContext.Reservations.Add(reservationDb);
+            await _reservationSystemContext.SaveChangesAsync();
+
+            return reservationDb.ToDomain();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw new ReservationRepositoryException($"Error while adding reservations {reservation}.", e);
+        }
+    }
 }

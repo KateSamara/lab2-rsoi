@@ -5,4 +5,8 @@ namespace ReservationSystem.Domain.Interfaces.Services;
 public interface IReservationService
 {
     public Task<List<Reservation>> GetReservationsByUsernameAsync(string username);
+    
+    public Task<int> GetReservationsCountByStatusAndUsernameAsync(ReservationStatus status, string username);
+
+    public Task<Reservation> AddReservationAsync(ReservationCreate reservation);
 }

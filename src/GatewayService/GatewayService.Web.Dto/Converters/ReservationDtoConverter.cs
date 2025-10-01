@@ -1,16 +1,28 @@
+using GatewayService.Web.Dto.Books;
+using GatewayService.Web.Dto.Libraries;
+using GatewayService.Web.Dto.Ratings;
+using GatewayService.Web.Dto.Reservations;
+
 namespace GatewayService.Web.Dto.Converters;
 
 public static class ReservationDtoConverter
 {
     public static ReservationFullDto ToFullDto(this ReservationDto reservationDto, 
         BookDto bookDto,
-        LibraryDto libraryDto)
+        LibraryDto libraryDto,
+        RatingDto? ratingDto)
     {
-        return new ReservationFullDto(reservationUuid: reservationDto.ReservationUuid,
+        var reservationFull = new ReservationFullDto(reservationUuid: reservationDto.ReservationUuid,
             status: reservationDto.Status,
-            startDate: reservationDto.StartDate.Date,
-            tillDate: reservationDto.TillDate.Date,
+            startDate: reservationDto.StartDate,
+            tillDate: reservationDto.TillDate,
             book: bookDto,
-            library: libraryDto);
+            library: libraryDto,
+            rating: ratingDto);
+        
+        reservationFull.Book.Condition = null;
+        reservationFull.Book.AvailableCount = null;
+        
+        return reservationFull;
     }
 }

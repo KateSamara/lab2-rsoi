@@ -1,9 +1,9 @@
 using System.Text.Json;
 using GatewayService.Configuration;
 using GatewayService.Web.Dto;
+using GatewayService.Web.Dto.Ratings;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-using RatingSystem.Web.Dto;
 
 namespace GatewayService.Web.Api.Controllers;
 

@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using ReservationSystem.DataAccess.Context;
@@ -11,9 +12,11 @@ using ReservationSystem.DataAccess.Context;
 namespace ReservationSystem.DataAccess.Context.Migrations
 {
     [DbContext(typeof(ReservationSystemContext))]
-    partial class ReservationSystemContextModelSnapshot : ModelSnapshot
+    [Migration("20250930203524_MakeDateDateOnly")]
+    partial class MakeDateDateOnly
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

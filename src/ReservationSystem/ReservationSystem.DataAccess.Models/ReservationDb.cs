@@ -8,10 +8,10 @@ public class ReservationDb
     public Guid BookUuid { get; set; }
     public Guid LibraryUuid { get; set; }
     public ReservationStatusDb Status { get; set; }
-    public DateTime StartDate { get; set; }
-    public DateTime TillDate { get; set; }
+    public DateOnly StartDate { get; set; }
+    public DateOnly TillDate { get; set; }
 
-    public ReservationDb(int id, Guid reservationUuid, string username, Guid bookUuid, Guid libraryUuid, ReservationStatusDb status, DateTime startDate, DateTime tillDate)
+    public ReservationDb(int id, Guid reservationUuid, string username, Guid bookUuid, Guid libraryUuid, ReservationStatusDb status, DateOnly startDate, DateOnly tillDate)
     {
         Id = id;
         ReservationUuid = reservationUuid;

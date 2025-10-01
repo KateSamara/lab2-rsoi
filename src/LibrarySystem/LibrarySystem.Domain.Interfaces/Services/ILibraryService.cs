@@ -11,4 +11,6 @@ public interface ILibraryService
     public Task<BookPaged> GetBookPagedByLibraryUuidAsync(BookRequest bookRequest);
     
     public Task<List<Library>> GetLibrariesByIdsAsync(List<Guid> ids);
+    
+    public Task<LibraryBook> DecreaseBookCountAsync(Guid libraryId, Guid bookId);
 }
