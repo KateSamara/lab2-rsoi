@@ -61,4 +61,23 @@ public class RatingRepository(RatingSystemContext context) : IRatingRepository
             throw new RatingRepositoryException("There was an error while adding the rating.", e);
         }
     }
+
+    public async Task UpdateRatingAsync(string username, int starDifference)
+    {
+        try
+        {
+            var rating = await _context.Ratings
+                .Where(r => r.Username == username)
+                .FirstAsync();
+            
+            rating.Stars += starDifference;
+            
+            await _context.SaveChangesAsync();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw new RatingRepositoryException($"There was an error while updating the rating for user = {username}.", e);
+        }
+    }
 }

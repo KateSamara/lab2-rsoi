@@ -1,3 +1,4 @@
+using System.Net;
 using System.Text;
 using System.Text.Json;
 using GatewayService.Configuration;
@@ -92,28 +93,95 @@ public class ReservationController : ControllerBase
         return Ok(newReservation.ToFullDto(libraryBook.Book, libraryBook.Library, rating));
     }
 
+    [HttpPost("{reservationId}/return")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public async Task<IActionResult> DeleteReservationAsync([FromHeader(Name = "X-User-Name")] string username,
+        [FromRoute] Guid reservationId,
+        [FromBody] ReservationDeleteDto reservationDelete)
+    {
+        using var client = new HttpClient();
+        
+        // Получение брони
+        var reservation = await DeleteReservationAsync(client, reservationId, reservationDelete.Date);
+        if (reservation is null)
+            return NoContent();
+        
+        // Меняем инфу в библиотеке и получаем книжку (СПАСИТЕ, Я ЗАДОЛБАЛАСЬ ЭТО ДЕЛАТЬ)
+        var libraryBook = await UpdateAvailableBooksCount(client, 
+            reservation.BookUuid, 
+            reservation.LibraryUuid,
+            true);
+
+        // Обновление рейтинга
+        var starDifference = 0;
+        if (reservation.Status != "EXPIRED" && libraryBook.Book.Condition == reservationDelete.Condition)
+        {
+            starDifference++;
+        }
+        else
+        {
+            if (reservation.Status == "EXPIRED")
+                starDifference -= 10;
+            if (libraryBook.Book.Condition != reservationDelete.Condition)
+                starDifference -= 10;
+        }
+
+        await UpdateRatingAsync(client, username, starDifference);
+        
+        return NoContent();
+    }
+
+    private async Task UpdateRatingAsync(HttpClient client, string username, int starDifference)
+    {
+        using var request = new HttpRequestMessage(HttpMethod.Patch,
+            $"{_ratingSystemConfiguration.IpAddress}/{_ratingSystemConfiguration.BaseUrl}?starDifference={starDifference}");
+        request.Headers.Add(_ratingSystemConfiguration.UsernameHeader, username);
+
+        using var response = await client.SendAsync(request);
+        response.EnsureSuccessStatusCode();
+    }
+
+    private async Task<ReservationDto?> DeleteReservationAsync(HttpClient client, Guid reservationId, DateOnly date)
+    {
+        using var request = new HttpRequestMessage(HttpMethod.Patch,
+            $"{_reservationSystemConfiguration.IpAddress}/{_reservationSystemConfiguration.BaseUrl}/{reservationId}" +
+            $"?returnDate={date.ToString("yyyy.MM.dd")}");
+
+        using var response = await client.SendAsync(request);
+        if (response.StatusCode == HttpStatusCode.NotFound)
+            return null;
+        response.EnsureSuccessStatusCode();
+        var json = await response.Content.ReadAsStringAsync();
+        
+        var reservation = JsonSerializer.Deserialize<ReservationDto>(json);
+
+        return reservation;
+    }
+
     private async Task<List<LibraryDto>> GetLibrariesByIdsAsync(HttpClient client, List<Guid> libraryUuids)
     {
-        using var libraryRequest = new HttpRequestMessage(HttpMethod.Get,
+        using var request = new HttpRequestMessage(HttpMethod.Get,
             $"{_librarySystemConfiguration.IpAddress}/{_librarySystemConfiguration.BaseUrl}/{_librarySystemConfiguration.SearchByIdsSuffix}{BuildPartUrlWithIds(libraryUuids)}");
-        using var libraryResponse = await client.SendAsync(libraryRequest);
-        libraryResponse.EnsureSuccessStatusCode();
-        var libraryJson = await libraryResponse.Content.ReadAsStringAsync();
+        using var response = await client.SendAsync(request);
+        response.EnsureSuccessStatusCode();
+        var json = await response.Content.ReadAsStringAsync();
         
-        var libraries = JsonSerializer.Deserialize<List<LibraryDto>>(libraryJson);
+        var libraries = JsonSerializer.Deserialize<List<LibraryDto>>(json);
 
         return libraries;
     }
 
     private async Task<List<BookDto>> GetBooksByIdsAsync(HttpClient client, List<Guid> bookUuids)
     {
-        using var booksRequest = new HttpRequestMessage(HttpMethod.Get,
+        using var request = new HttpRequestMessage(HttpMethod.Get,
             $"{_librarySystemConfiguration.IpAddress}/{_librarySystemConfiguration.BaseBookUrl}/{_librarySystemConfiguration.SearchByIdsSuffix}{BuildPartUrlWithIds(bookUuids)}");
-        using var bookResponse = await client.SendAsync(booksRequest);
-        bookResponse.EnsureSuccessStatusCode();
-        var bookJson = await bookResponse.Content.ReadAsStringAsync();
+        using var response = await client.SendAsync(request);
+        response.EnsureSuccessStatusCode();
+        var json = await response.Content.ReadAsStringAsync();
         
-        var books = JsonSerializer.Deserialize<List<BookDto>>(bookJson);
+        var books = JsonSerializer.Deserialize<List<BookDto>>(json);
         
         return books;
     }

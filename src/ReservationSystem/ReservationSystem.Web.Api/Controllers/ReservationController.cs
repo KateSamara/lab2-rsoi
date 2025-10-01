@@ -48,4 +48,17 @@ public class ReservationController : ControllerBase
         
         return Ok(newReservation.ToDto());
     }
+
+    [HttpPatch("{uuid}")]
+    [ProducesResponseType(typeof(List<ReservationDto>), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public async Task<IActionResult> DeleteReservationAsync([FromRoute] Guid uuid, [FromQuery] DateOnly returnDate)
+    {
+        var reservation = await _reservationService.DeleteReservationAsync(uuid, returnDate);
+        if (reservation == null)
+            return NotFound();
+        
+        return Ok(reservation.ToDto());
+    }
 }

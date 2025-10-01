@@ -9,4 +9,6 @@ public interface IRatingRepository
     public Task<int> GetRatingCountAsync();
     
     public Task AddRatingAsync(Rating rating);
+    
+    public Task UpdateRatingAsync(string username, int starDifference);
 }

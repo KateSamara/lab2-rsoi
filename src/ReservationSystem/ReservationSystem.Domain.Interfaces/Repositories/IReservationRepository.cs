@@ -9,4 +9,8 @@ public interface IReservationRepository
     public Task<int> GetReservationsCountByStatusAndUsernameAsync(ReservationStatus status, string username);
     
     public Task<Reservation> AddReservationAsync(ReservationCreate reservation);
+    
+    public Task<Reservation?> FindReservationByUuidAsync(Guid reservationUuid);
+    
+    public Task<Reservation> UpdateReservationStatusAsync(Guid reservationUuid, ReservationStatus status);
 }

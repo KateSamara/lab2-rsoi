@@ -22,4 +22,17 @@ public class RatingService(IRatingRepository ratingRepository) : IRatingService
                 e);
         }
     }
+
+    public async Task UpdateRatingAsync(string username, int starDifference)
+    {
+        try
+        {
+            await _ratingRepository.UpdateRatingAsync(username, starDifference);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw new RatingServiceException($"There was an error while updating the rating for user = {username}.", e);
+        }
+    }
 }

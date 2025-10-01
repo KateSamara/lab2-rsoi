@@ -75,12 +75,7 @@ public class LibraryController : ControllerBase
     public async Task<IActionResult> UpdateBookCountAsync([FromRoute] Guid libraryUid, [FromRoute] Guid bookUid,
         [FromQuery] bool isIncrease)
     {
-        LibraryBook libraryBook;
-        
-        if (isIncrease)
-            return StatusCode(StatusCodes.Status405MethodNotAllowed);
-        else
-            libraryBook = await _libraryService.DecreaseBookCountAsync(libraryUid, bookUid);
+        var libraryBook = await _libraryService.ChangeBookCountAsync(libraryUid, bookUid, isIncrease);
         
         return Ok(libraryBook.ToDto());
     }

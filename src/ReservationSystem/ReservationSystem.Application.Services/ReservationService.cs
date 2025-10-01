@@ -48,4 +48,27 @@ public class ReservationService(IReservationRepository reservationRepository) : 
             throw new ReservationServiceException($"Error while adding reservations {reservation}.", e);
         }
     }
+
+    public async Task<Reservation?> DeleteReservationAsync(Guid reservationUuid, DateOnly returnDate)
+    {
+        try
+        {
+            var reservation = await _reservationRepository.FindReservationByUuidAsync(reservationUuid);
+            if (reservation == null)
+                return null;
+            
+            Domain.Models.ReservationStatus status;
+            if (returnDate > reservation.TillDate)
+                status = Domain.Models.ReservationStatus.EXPIRED;
+            else
+                status = Domain.Models.ReservationStatus.RETURNED;
+            
+            return await _reservationRepository.UpdateReservationStatusAsync(reservationUuid, status);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+    }
 }

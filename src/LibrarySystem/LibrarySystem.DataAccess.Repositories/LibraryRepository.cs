@@ -127,7 +127,7 @@ public class LibraryRepository(LibrarySystemContext context) : ILibraryRepositor
         }
     }
 
-    public async Task<LibraryBook> DecreaseBookCountAsync(Guid libraryId, Guid bookId)
+    public async Task<LibraryBook> ChangeBookCountAsync(Guid libraryId, Guid bookId, bool isIncrease)
     {
         try
         {
@@ -135,8 +135,12 @@ public class LibraryRepository(LibrarySystemContext context) : ILibraryRepositor
                 .Include(lb => lb.Book)
                 .Include(lb => lb.Library)
                 .FirstAsync(lb => lb.Library!.LibraryUuid == libraryId && lb.Book!.BookUuid == bookId);
+
+            if (isIncrease)
+                libraryBook.AvailableCount++;
+            else
+                libraryBook.AvailableCount--;
             
-            libraryBook.AvailableCount--;
             await _context.SaveChangesAsync();
             
             return libraryBook.ToDomain();

@@ -12,5 +12,5 @@ public interface ILibraryService
     
     public Task<List<Library>> GetLibrariesByIdsAsync(List<Guid> ids);
     
-    public Task<LibraryBook> DecreaseBookCountAsync(Guid libraryId, Guid bookId);
+    public Task<LibraryBook> ChangeBookCountAsync(Guid libraryId, Guid bookId, bool isIncrease);
 }

@@ -67,7 +67,45 @@ public class ReservationRepository(ReservationSystemContext reservationSystemCon
         catch (Exception e)
         {
             Console.WriteLine(e);
-            throw new ReservationRepositoryException($"Error while adding reservations {reservation}.", e);
+            throw new ReservationRepositoryException($"Error while adding reservation {reservation}.", e);
+        }
+    }
+
+    public async Task<Reservation?> FindReservationByUuidAsync(Guid reservationUuid)
+    {
+        try
+        {
+            var reservationDb = await _reservationSystemContext.Reservations
+                .AsNoTracking()
+                .Where(r => r.ReservationUuid == reservationUuid)
+                .FirstOrDefaultAsync();
+            
+            return reservationDb?.ToDomain();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw new ReservationRepositoryException($"Error while finding reservation by uid = {reservationUuid}.", e);
+        }
+    }
+
+    public async Task<Reservation> UpdateReservationStatusAsync(Guid reservationUuid, Domain.Models.ReservationStatus status)
+    {
+        try
+        {
+            var reservationDb = await _reservationSystemContext.Reservations
+                .Where(r => r.ReservationUuid == reservationUuid)
+                .FirstAsync();
+            reservationDb.Status = status.ToDb();
+            
+            await _reservationSystemContext.SaveChangesAsync();
+
+            return reservationDb.ToDomain();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw new ReservationRepositoryException($"Error while updating reservation by uid {reservationUuid}.", e);
         }
     }
 }

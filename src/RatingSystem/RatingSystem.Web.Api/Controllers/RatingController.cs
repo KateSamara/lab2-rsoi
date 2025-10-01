@@ -25,4 +25,15 @@ public class RatingController : ControllerBase
         
         return Ok(rating.ToDto());
     }
+
+    [HttpPatch]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public async Task<IActionResult> UpdateRatingAsync([FromHeader(Name = "X-User-Name")] string username,
+        [FromQuery] int starDifference)
+    {
+        await _ratingService.UpdateRatingAsync(username, starDifference);
+        
+        return Ok();
+    }
 }

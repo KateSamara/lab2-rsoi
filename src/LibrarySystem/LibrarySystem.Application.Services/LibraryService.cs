@@ -50,11 +50,11 @@ public class LibraryService(ILibraryRepository libraryRepository) : ILibraryServ
         }
     }
 
-    public async Task<LibraryBook> DecreaseBookCountAsync(Guid libraryId, Guid bookId)
+    public async Task<LibraryBook> ChangeBookCountAsync(Guid libraryId, Guid bookId, bool isIncrease)
     {
         try
         {
-            return await _libraryRepository.DecreaseBookCountAsync(libraryId, bookId);
+            return await _libraryRepository.ChangeBookCountAsync(libraryId, bookId, isIncrease);
         }
         catch (Exception e)
         {

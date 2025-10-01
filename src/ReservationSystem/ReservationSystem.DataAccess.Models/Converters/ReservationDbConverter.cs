@@ -21,7 +21,7 @@ public static class ReservationDbConverter
 
     public static ReservationDb ToDb(this ReservationCreate reservation, int id)
     {
-        var currentTime = DateTime.UtcNow;
+        var currentTime = DateTime.Now;
         return new ReservationDb(id: id,
             reservationUuid: Guid.NewGuid(),
             username: reservation.Username,
