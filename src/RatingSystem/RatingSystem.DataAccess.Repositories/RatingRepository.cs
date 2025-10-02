@@ -72,6 +72,11 @@ public class RatingRepository(RatingSystemContext context) : IRatingRepository
             
             rating.Stars += starDifference;
             
+            if (rating.Stars < 0)
+                rating.Stars = 0;
+            if (rating.Stars > 100)
+                rating.Stars = 100;
+            
             await _context.SaveChangesAsync();
         }
         catch (Exception e)
