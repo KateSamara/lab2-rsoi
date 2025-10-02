@@ -5,3 +5,5 @@ WORKDIR /app
 COPY ./src/RatingSystem ./RatingSystem
 
 WORKDIR /app
+
+ENTRYPOINT ["dotnet", "./RatingSystem/RatingSystem.Web.Api/bin/Release/net8.0/RatingSystem.Web.Api.dll"]

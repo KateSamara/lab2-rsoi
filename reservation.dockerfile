@@ -5,3 +5,5 @@ WORKDIR /app
 COPY ./src/ReservationSystem ./ReservationSystem
 
 WORKDIR /app
+
+ENTRYPOINT ["dotnet", "./ReservationSystem/ReservationSystem.Web.Api/bin/Release/net8.0/ReservationSystem.Web.Api.dll"]
