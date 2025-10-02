@@ -35,7 +35,6 @@ services:
       DOCKER_CONNECTION_STRING: "Host=postgres;Port=5432;Database=libraries;Username=program;Password=test"
     networks:
       - test-network
-    command: ["sh", "-c", "dotnet run /app/LibrarySystem/LibrarySystem.Web.Api/LibrarySystem.Web.Api.csproj"]
     ports:
       - "8060:8060"
 
@@ -51,7 +50,6 @@ services:
       DOCKER_CONNECTION_STRING: "Host=postgres;Port=5432;Database=reservations;Username=program;Password=test"
     networks:
       - test-network
-    command: ["sh", "-c", "dotnet run /app/ReservationSystem/ReservationSystem.Web.Api/ReservationSystem.Web.Api.csproj"]
     ports:
       - "8070:8070"
 
@@ -67,7 +65,6 @@ services:
       DOCKER_CONNECTION_STRING: "Host=postgres;Port=5432;Database=ratings;Username=program;Password=test"
     networks:
       - test-network
-    command: ["sh", "-c", "dotnet run /app/RatingSystem/RatingSystem.Web.Api/RatingSystem.Web.Api.csproj"]
     ports:
       - "8050:8050"
 
@@ -81,7 +78,6 @@ services:
         condition: service_healthy
     networks:
       - test-network
-    #command: ["sh", "-c", "dotnet run /app/GatewayService/GatewayService.Web.Api/GatewayService.Web.Api.csproj"]
     ports:
       - "8080:8080"
 
