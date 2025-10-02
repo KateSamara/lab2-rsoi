@@ -32,7 +32,7 @@ services:
       postgres:
         condition: service_healthy
     environment:
-      - DOCKER_CONNECTION_STRING="Host=postgres;Port=5432;Database=libraries;Username=program;Password=test"
+      - DOCKER_CONNECTION_STRING=Host=postgres;Port=5432;Database=libraries;Username=program;Password=test
       - ASPNETCORE_HTTP_PORTS=8060
     networks:
       - test-network
@@ -48,7 +48,7 @@ services:
       postgres:
         condition: service_healthy
     environment:
-      - DOCKER_CONNECTION_STRING="Host=postgres;Port=5432;Database=reservations;Username=program;Password=test"
+      - DOCKER_CONNECTION_STRING=Host=postgres;Port=5432;Database=reservations;Username=program;Password=test
       - ASPNETCORE_HTTP_PORTS=8070
     networks:
       - test-network
@@ -64,7 +64,7 @@ services:
       postgres:
         condition: service_healthy
     environment:
-      - DOCKER_CONNECTION_STRING="Host=postgres;Port=5432;Database=ratings;Username=program;Password=test"
+      - DOCKER_CONNECTION_STRING=Host=postgres;Port=5432;Database=ratings;Username=program;Password=test
       - ASPNETCORE_HTTP_PORTS=8050
     networks:
       - test-network
