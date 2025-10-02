@@ -4,8 +4,4 @@ WORKDIR /app
 
 COPY ./src/ReservationSystem ./ReservationSystem
 
-RUN dotnet restore ./ReservationSystem/ReservationSystem.sln
-
-RUN dotnet build ./ReservationSystem/ReservationSystem.sln -c Release
-
 WORKDIR /app

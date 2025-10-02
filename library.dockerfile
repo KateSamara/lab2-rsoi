@@ -4,8 +4,4 @@ WORKDIR /app
 
 COPY ./src/LibrarySystem ./LibrarySystem
 
-RUN dotnet restore ./LibrarySystem/LibrarySystem.sln
-
-RUN dotnet build ./LibrarySystem/LibrarySystem.sln -c Release
-
 WORKDIR /app
