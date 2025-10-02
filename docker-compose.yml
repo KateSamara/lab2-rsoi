@@ -81,7 +81,7 @@ services:
         condition: service_healthy
     networks:
       - test-network
-    command: ["sh", "-c", "dotnet run /app/GatewayService/GatewayService.Web.Api/GatewayService.Web.Api.csproj"]
+    #command: ["sh", "-c", "dotnet run /app/GatewayService/GatewayService.Web.Api/GatewayService.Web.Api.csproj"]
     ports:
       - "8080:8080"
 
