@@ -36,6 +36,8 @@ var app = builder.Build();
 var opt = app.Services.GetService<IOptions<LibrarySystemConfiguration>>();
 var conf = opt.Value;
 
+Console.WriteLine($"LibrarySystemConfiguration: {conf.IpAddress}");
+
 using var client = new HttpClient();
         
 using var request = new HttpRequestMessage(HttpMethod.Get,
