@@ -33,7 +33,7 @@ builder.Services.Configure<ApiBehaviorOptions>(options =>
 
 var app = builder.Build();
 
-var opt = app.Services.GetService<IOptions<LibrarySystemConfiguration>>();
+/*var opt = app.Services.GetService<IOptions<LibrarySystemConfiguration>>();
 var conf = opt.Value;
 
 Console.WriteLine($"LibrarySystemConfiguration: {conf.IpAddress}");
@@ -48,7 +48,7 @@ using var response = await client.SendAsync(request);
 response.EnsureSuccessStatusCode();
 var json = await response.Content.ReadAsStringAsync();
 
-Console.WriteLine(json);
+Console.WriteLine(json);*/
 
 if (app.Environment.IsDevelopment())
 {

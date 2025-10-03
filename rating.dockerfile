@@ -4,6 +4,10 @@ WORKDIR /app
 
 COPY ./src/RatingSystem ./RatingSystem
 
+WORKDIR /app/RatingSystem
+
+RUN dotnet publish --configuration Release --runtime linux-x64 --self-contained true --output /app
+
 WORKDIR /app
 
-ENTRYPOINT ["dotnet", "./RatingSystem/RatingSystem.Web.Api/bin/Release/net8.0/RatingSystem.Web.Api.dll"]
+ENTRYPOINT ["/app/RatingSystem.Web.Api"]

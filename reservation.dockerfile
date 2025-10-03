@@ -4,6 +4,10 @@ WORKDIR /app
 
 COPY ./src/ReservationSystem ./ReservationSystem
 
+WORKDIR /app/ReservationSystem
+
+RUN dotnet publish --configuration Release --runtime linux-x64 --self-contained true --output /app
+
 WORKDIR /app
 
-ENTRYPOINT ["dotnet", "./ReservationSystem/ReservationSystem.Web.Api/bin/Release/net8.0/ReservationSystem.Web.Api.dll"]
+ENTRYPOINT ["/app/ReservationSystem.Web.Api"]
