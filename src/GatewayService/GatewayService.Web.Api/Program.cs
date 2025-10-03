@@ -33,23 +33,6 @@ builder.Services.Configure<ApiBehaviorOptions>(options =>
 
 var app = builder.Build();
 
-/*var opt = app.Services.GetService<IOptions<LibrarySystemConfiguration>>();
-var conf = opt.Value;
-
-Console.WriteLine($"LibrarySystemConfiguration: {conf.IpAddress}");
-
-using var client = new HttpClient();
-        
-using var request = new HttpRequestMessage(HttpMethod.Get,
-    $"{conf.IpAddress}/{conf.BaseUrl}" +
-    $"?page=1&size=1&city=Москва");
-        
-using var response = await client.SendAsync(request);
-response.EnsureSuccessStatusCode();
-var json = await response.Content.ReadAsStringAsync();
-
-Console.WriteLine(json);*/
-
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
