@@ -1,11 +1,13 @@
-FROM mcr.microsoft.com/dotnet/aspnet:8.0-jammy
+FROM mcr.microsoft.com/dotnet/sdk:8.0
 
 WORKDIR /app
 
 COPY ./src/GatewayService ./GatewayService
 
-RUN dotnet restore ./GatewayService/GatewayService.sln
+WORKDIR /app/GatewayService
 
-RUN dotnet build ./GatewayService/GatewayService.sln -c Release
+RUN dotnet publish --configuration Release --runtime linux-x64 --self-contained true --output /app
 
 WORKDIR /app
+
+ENTRYPOINT ["/app/GatewayService.Web.Api"]

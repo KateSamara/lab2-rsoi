@@ -81,7 +81,7 @@ services:
         condition: service_healthy
     environment:
       - ASPNETCORE_HTTP_PORTS=8080
-    command: ["sh", "-c", "dotnet run /app/GatewayService/GatewayService.Web.Api/GatewayService.Web.Api.csproj"]
+    #command: ["sh", "-c", "dotnet run /app/GatewayService/GatewayService.Web.Api/GatewayService.Web.Api.csproj"]
     networks:
       - test-network
     ports:
