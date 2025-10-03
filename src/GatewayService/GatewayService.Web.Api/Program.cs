@@ -3,6 +3,7 @@ using System.Text.Json.Serialization;
 using GatewayService.Configuration;
 using GatewayService.Web.Api;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -31,6 +32,21 @@ builder.Services.Configure<ApiBehaviorOptions>(options =>
 });
 
 var app = builder.Build();
+
+var opt = app.Services.GetService<IOptions<LibrarySystemConfiguration>>();
+var conf = opt.Value;
+
+using var client = new HttpClient();
+        
+using var request = new HttpRequestMessage(HttpMethod.Get,
+    $"{conf.IpAddress}/{conf.BaseUrl}" +
+    $"?page=1&size=1&city=Москва");
+        
+using var response = await client.SendAsync(request);
+response.EnsureSuccessStatusCode();
+var json = await response.Content.ReadAsStringAsync();
+
+Console.WriteLine(json);
 
 if (app.Environment.IsDevelopment())
 {
