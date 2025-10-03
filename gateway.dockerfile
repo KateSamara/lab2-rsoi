@@ -4,6 +4,10 @@ WORKDIR /app
 
 COPY ./src/GatewayService ./GatewayService
 
+WORKDIR /app/GatewayService
+
+RUN dotnet publish --configuration Release --runtime linux-x64 --self-contained true --output /app
+
 WORKDIR /app
 
-ENTRYPOINT ["dotnet", "./GatewayService/GatewayService.Web.Api/bin/Release/net8.0/GatewayService.Web.Api.dll"]
+ENTRYPOINT ["GatewayService.Web.Api"]
